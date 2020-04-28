@@ -1,0 +1,132 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27/04/2020, 11:35:45 PM
+    Author     : b22br
+*/
+
+* { box-sizing: border-box; }
+  
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #212121;
+}
+
+label, h1{
+    color: #eeeeee;
+}
+
+  /* Style the header */
+.header {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+}  
+  
+/* Create three unequal columns that floats next to each other */
+.column {
+  float: left;
+  height: 500px; /* Should be removed. Only for demonstration */
+}  
+  
+/* Left and right column */
+.column.side {
+  width: 10%;
+  background-color: #181818;
+}  
+  
+/* Middle column */
+.column.middle {
+  width: 90%;
+  padding: 10px;
+  color: #eeeeee;
+  background-color: #212121;
+}  
+  
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}  
+  
+/* Style the footer */
+.footer {
+  color: #eeeeee;
+  background-color: #212121;
+  padding: 8px;
+  text-align: center;
+}  
+  
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .column.side {
+    width: 15%;
+  }
+  .column.middle{
+      width: 85%;
+  }
+}  
+
+
+  /* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #121212;
+}
+  
+  /* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+  
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #268bd2;
+    color: black;
+}
+/*
+.sidebar {
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    z-index: 1;
+    top: 70px;
+    left: 0;
+    background-color: #181818;
+    overflow-x: hidden;
+}
+*/
+/* Side navigation links */
+.sidebar a {
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+  display: block;
+}
+  
+/* Change color on hover */
+.sidebar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.link{
+  color: #268bd2;
+}
+
+/*
+rgb(33,33,33) bg #212121
+rgb(238,238,238) text #eeeeee
+rgb(202,202,202) placeholder #cacaca
+rgb(38,139,210) primary #268bd2
+*/
