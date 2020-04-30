@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Form login</title>
-        <link href="css/estilo.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/estilo.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div id="contenedor1">
@@ -22,7 +22,7 @@
                 <img src="imagen/bloquear.png" alt="" width="30px" height="30px"/>
                 <input type="password" name="txtPass" placeholder="Password"/>
                 <hr>
-                <input type="submit" name="action" value="Iniciar sesion"/>
+                <input type="submit" name="action" value="login"/>
             </form>
         </div>
         <div id="conetendor2">
