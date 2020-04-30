@@ -15,19 +15,19 @@
     </head>
     <body>
         <div class="topnav">
-            <a href="home.html" class="">Logo</a>
+            <a href="homeStudent.jsp">Logo</a>
             <a href="#" class="">About</a>
             <a href="#" class="">Values</a>
             <a href="#" class="">News</a>
             <a href="#" class="">Contact</a>
-            <a href="home_jobhunter.html" class="">Clients</a>
+            <a href="#" class="">Clients</a>
             <a href="#" class="">Partners</a>
         </div>
         
         <div class="row">
             <div class="column side" >
                 <nav class="sidebar">
-                    <a href="#">Perfil</a>
+                    <a href="profileStudent.jsp">Perfil</a>
                     <a href="#">Mi CV</a>
                     <a href="#">Vacantes</a>
                 </nav>              

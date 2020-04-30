@@ -3,8 +3,8 @@
     Created on : 27/04/2020, 08:27:58 PM
     Author     : b22br
 --%>
-<%@page import="model.User"%>
-<%@page import="model.UserDAO"%>
+<%@page import="model.user.UserDAO"%>
+<%@page import="model.user.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

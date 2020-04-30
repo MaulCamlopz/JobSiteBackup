@@ -1,46 +1,53 @@
-package model;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model.student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import model.ConnectionDB;
 
-public class UserDAO implements UserCRUD {
+/**
+ *
+ * @author b22br
+ */
+public class StudentDAO implements StudentCRUD{
     
     ConnectionDB connDB = new ConnectionDB();
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
-    User user = new User();
+    Student student = new Student();
 
     @Override
-    public boolean create(User user) {
+    public boolean create(Student student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public User read(String code, String pass) {
+    public Student read(int idUser) {
+        Student student = new Student();
         
-        User user = new User();
-        String sql = "select * from user where Nickname = '" + code + "' and Password = '" + pass+"'";
+        String sql = "select * from student where User_id = "+idUser;
         try {
             conn = connDB.getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                user.setId(rs.getInt("id"));
-                user.setCode(rs.getString("Nickname"));
-                user.setPass(rs.getString("Password"));
-                user.setType(rs.getString("user_type"));
+                student.setId(rs.getInt("id"));
+                student.setName(rs.getString("name"));
             }
         } catch (Exception e) {
         }
-        System.out.println("RETURN ID: "+user.getId());
-        return user;
-        
+        System.out.println("RETURN STUDENT: "+student.getName());
+        return student;
     }
 
     @Override
-    public boolean update(User user) {
+    public boolean update(Student student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -48,7 +55,5 @@ public class UserDAO implements UserCRUD {
     public boolean delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
     
 }
