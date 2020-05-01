@@ -12,17 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.student.Student;
-import model.student.StudentDAO;
-import model.user.User;
 
 /**
  *
  * @author b22br
  */
-@WebServlet(name = "StudentController", urlPatterns = {"/StudentController"})
-public class StudentController extends HttpServlet {
+@WebServlet(name = "ErrorSessionController", urlPatterns = {"/ErrorSessionController"})
+public class ErrorSessionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,33 +32,19 @@ public class StudentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession session = request.getSession();
-        
-        User user = (User)session.getAttribute("user");
-        
-        if(user == null){
-            request.getRequestDispatcher("ErrorSessionController");
-        }else{
-            StudentDAO sDao = new StudentDAO();
-            Student student = sDao.read(user.getId());
-            session.setAttribute("student", student);
-            request.getRequestDispatcher("profileStudent.jsp").forward(request, response);
-            /*try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet StudentController</title>");            
+            out.println("<title>Servlet ErrorSessionController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Welcome " + student.getName() + "</h1>");
-            out.println("<a href='LogoutController'>Cerrar sessión</a>");
+            out.println("<h1>Error al iniciar sessión</h1>");
+            out.println("<a href='index.jsp'>Volver</a>");
             out.println("</body>");
             out.println("</html>");
-            }*/
         }
-        
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

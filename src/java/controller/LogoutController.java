@@ -13,16 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.student.Student;
-import model.student.StudentDAO;
-import model.user.User;
 
 /**
  *
  * @author b22br
  */
-@WebServlet(name = "StudentController", urlPatterns = {"/StudentController"})
-public class StudentController extends HttpServlet {
+@WebServlet(name = "LogoutController", urlPatterns = {"/LogoutController"})
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,30 +35,8 @@ public class StudentController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession();
-        
-        User user = (User)session.getAttribute("user");
-        
-        if(user == null){
-            request.getRequestDispatcher("ErrorSessionController");
-        }else{
-            StudentDAO sDao = new StudentDAO();
-            Student student = sDao.read(user.getId());
-            session.setAttribute("student", student);
-            request.getRequestDispatcher("profileStudent.jsp").forward(request, response);
-            /*try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet StudentController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Welcome " + student.getName() + "</h1>");
-            out.println("<a href='LogoutController'>Cerrar sessión</a>");
-            out.println("</body>");
-            out.println("</html>");
-            }*/
-        }
-        
+        session.removeAttribute("user");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
         
     }
 

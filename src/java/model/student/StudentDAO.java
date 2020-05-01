@@ -39,6 +39,7 @@ public class StudentDAO implements StudentCRUD{
             while(rs.next()){
                 student.setId(rs.getInt("id"));
                 student.setName(rs.getString("name"));
+                student.setLastName(rs.getString("last_name"));
             }
         } catch (Exception e) {
         }
