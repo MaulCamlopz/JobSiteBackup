@@ -19,15 +19,15 @@
     </head>
     <body>
         <%
-            UserDAO dao = new UserDAO();
+            /*UserDAO dao = new UserDAO();
             String code = (String)request.getAttribute("code");
             String pass = (String)request.getAttribute("pass");
             System.out.println("Code Pre-User: "+code);
             System.out.println("Pass Pre-User: "+pass);
             User user = dao.read(code,pass);
             System.out.println("ID User: "+user.getId());
-            StudentDAO sDao = new StudentDAO();
-            Student student = sDao.read(user.getId());
+            StudentDAO sDao = new StudentDAO();*/
+            Student student = (Student)session.getAttribute("student");
         %>
         <div class="topnav">
             <a href="homeStudent.jsp" class="">Logo</a>
@@ -48,7 +48,7 @@
                 </nav>              
             </div>
             <main class="column middle">
-                <h1>Welcome <%=student.getName()%></h1>
+                <h1>Welcome <%=student.getName()%> <%=student.getLastName()%></h1>
             </main>
         </div>
         <footer class="footer"><p>&copy; 2020 Kysuphanmem</p></footer>
