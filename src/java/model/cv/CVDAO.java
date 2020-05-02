@@ -3,59 +3,53 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.student;
+package model.cv;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import model.ConnectionDB;
 
 /**
  *
  * @author b22br
  */
-public class StudentDAO implements StudentCRUD{
+public class CVDAO implements CVCRUD {
     
     private ConnectionDB connDB = new ConnectionDB();
     private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
-    //private Student student = new Student();
-
+    
     @Override
-    public boolean create(Student student) {
+    public boolean createSkill(int idCV) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
-    public Student read(int idUser) {
-        Student student = new Student();
-        
-        String sql = "select * from student where User_id = "+idUser;
+    public ArrayList<String> readSkills(int id) {
+        ArrayList<String> skills = new ArrayList<>();
+        String sql = "SELECT Skill.id, Skill.item FROM CV " +
+            "INNER JOIN CV_Skill ON CV.id = CV_Skill.CV_id " +
+            "INNER JOIN Skill ON CV_Skill.Skill_id = Skill.id WHERE CV.id = " + id;
         try {
             conn = connDB.getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                student.setId(rs.getInt("id"));
-                student.setName(rs.getString("name"));
-                student.setLastName(rs.getString("last_name"));
-                student.setIdCv(rs.getInt("CV_id"));
+                skills.add(rs.getString("item"));
             }
         } catch (Exception e) {
         }
-        System.out.println("RETURN STUDENT: "+student.getName());
-        return student;
+        return skills;
     }
 
     @Override
-    public boolean update(Student student) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean delete(int id) {
+    public boolean deleteSkill(int idCV, int idSkill) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    
+
 }

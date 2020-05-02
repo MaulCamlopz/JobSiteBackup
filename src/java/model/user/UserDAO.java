@@ -13,7 +13,7 @@ public class UserDAO implements UserCRUD {
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
-    User user = new User();
+    //User user = new User();
 
     @Override
     public boolean create(User user) {

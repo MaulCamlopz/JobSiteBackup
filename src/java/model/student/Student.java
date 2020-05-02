@@ -5,6 +5,7 @@
  */
 package model.student;
 
+import model.cv.CV;
 /**
  *
  * @author b22br
@@ -26,6 +27,15 @@ public class Student {
     private String country;
     private String city;
     private String address;
+    private CV cv;
+
+    public CV getCv() {
+        return cv;
+    }
+
+    public void setCv(CV cv) {
+        this.cv = cv;
+    }
 
     public Student(int id, int idUser, int idCv, String name, 
             String lastName, String secondLastName, String birthDate, 

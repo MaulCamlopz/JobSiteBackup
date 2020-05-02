@@ -47,19 +47,7 @@ public class StudentController extends HttpServlet {
             StudentDAO sDao = new StudentDAO();
             Student student = sDao.read(user.getId());
             session.setAttribute("student", student);
-            request.getRequestDispatcher("profileStudent.jsp").forward(request, response);
-            /*try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet StudentController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Welcome " + student.getName() + "</h1>");
-            out.println("<a href='LogoutController'>Cerrar sessión</a>");
-            out.println("</body>");
-            out.println("</html>");
-            }*/
+            request.getRequestDispatcher("studentProfile.jsp").forward(request, response);
         }
         
         
