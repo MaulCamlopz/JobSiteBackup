@@ -26,7 +26,7 @@ public class StudentDAO implements StudentCRUD{
     public boolean create(Student student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public Student read(int idUser) {
         Student student = new Student();

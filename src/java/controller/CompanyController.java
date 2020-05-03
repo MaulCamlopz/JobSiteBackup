@@ -7,75 +7,49 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.company.Company;
+import model.company.CompanyDAO;
+import model.student.Student;
+import model.student.StudentDAO;
 import model.user.User;
-import model.user.UserDAO;
 
 /**
  *
  * @author b22br
  */
-@WebServlet(name = "loginController", urlPatterns = {"/loginController"})
-public class loginController extends HttpServlet {
-    
-    String home = "view/home.jsp";
-    final String homeAdmin = "homeAdmin.jsp";
-    final String homeCompany = "CompanyController";
-    final String homeStudent = "StudentController";
-    
-    User user = new User();
-    UserDAO dao = new UserDAO();
-    
+@WebServlet(name = "CompanyController", urlPatterns = {"/CompanyController"})
+public class CompanyController extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         
-        String access = "";
-        String action = request.getParameter("action");
+        User user = (User)session.getAttribute("user");
         
-        if(action.equalsIgnoreCase("login")){
-            String code = request.getParameter("txtUser");
-            System.out.println(code);
-            String password = request.getParameter("txtPass");
-            System.out.println(password);
-            user = dao.read(code, password);
-            System.out.println("user: "+user.getId());
-            if(user.getId() != 0){
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                System.out.println("user type: "+user.getType());
-                switch(user.getType()){
-                    case "admin":
-                        access = homeAdmin;
-                        break;
-                    case "company":
-                        access = homeCompany;
-                        break;
-                    case "student":
-                        access = homeStudent;
-                        break;
-                    default:
-                        access = "ErrorSessionController";
-                }
-                request.setAttribute("code",code);
-                request.setAttribute("pass",password);
-            }else{
-                access = "ErrorSessionController";
-            }
+        if(user == null){
+            request.getRequestDispatcher("ErrorSessionController");
         }else{
-            access = "ErrorSessionController";
+            CompanyDAO cDao = new CompanyDAO();
+            Company company = cDao.read(user.getId());
+            session.setAttribute("company", company);
+            request.getRequestDispatcher("companyProfile.jsp").forward(request, response);
         }
-            
-        
-        RequestDispatcher view = request.getRequestDispatcher(access);
-        view.forward(request, response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,7 +65,6 @@ public class loginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
 
     /**
@@ -106,9 +79,13 @@ public class loginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
     }
-    
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
