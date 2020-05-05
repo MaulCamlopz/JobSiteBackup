@@ -5,6 +5,8 @@ import model.user.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import model.ConnectionDB;
 
 public class UserDAO implements UserCRUD {
@@ -39,7 +41,24 @@ public class UserDAO implements UserCRUD {
         }
         System.out.println("RETURN ID: "+user.getId());
         return user;
-        
+    }
+    
+    public List listAdmin (){
+        ArrayList<User> list = new ArrayList<>();
+        String sql = "select nickname from user where user_type = 'company' or user_type = 'student'";
+        try {
+            conn = connDB.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                User user = new User();
+                user.setCode(rs.getString("nickname"));
+                list.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     @Override

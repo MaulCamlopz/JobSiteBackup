@@ -100,4 +100,27 @@ public class VacancyDAO {
         return list;
     }
     
+    public List listAdmin (){
+        ArrayList<Vacancy> list = new ArrayList<>();
+        String sql = "select * from vacancy";
+        try {
+            conn = connDB.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                Vacancy vacancy = new Vacancy();
+                vacancy.setId(rs.getInt("ID_Vacancy"));
+                vacancy.setWorkstation(rs.getString("Workstation"));
+                vacancy.setDescription(rs.getString("Description"));
+                vacancy.setSalary(rs.getInt("Salary"));
+                vacancy.setWorkHours(rs.getString("Work hours"));
+                vacancy.setAddress(rs.getString("Address_Job"));
+                list.add(vacancy);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
 }

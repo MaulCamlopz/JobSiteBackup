@@ -25,7 +25,7 @@ import model.user.UserDAO;
 public class loginController extends HttpServlet {
     
     String home = "view/home.jsp";
-    final String homeAdmin = "homeAdmin.jsp";
+    final String homeAdmin = "AdminController";
     final String homeCompany = "CompanyController";
     final String homeStudent = "StudentController";
     

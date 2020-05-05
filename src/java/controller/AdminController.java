@@ -13,14 +13,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.company.Company;
+import model.company.CompanyDAO;
 import model.user.User;
 
 /**
  *
  * @author b22br
  */
-@WebServlet(name = "LogoutController", urlPatterns = {"/LogoutController"})
-public class LogoutController extends HttpServlet {
+@WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
+public class AdminController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,14 +42,10 @@ public class LogoutController extends HttpServlet {
         User user = (User)session.getAttribute("user");
         
         if(user == null){
-            request.getRequestDispatcher("ErrorSessionController.jsp").forward(request, response);
+            request.getRequestDispatcher("ErrorSessionController");
         }else{
-            session.removeAttribute("user");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("adminHome.jsp").forward(request, response);
         }
-        
-        
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
