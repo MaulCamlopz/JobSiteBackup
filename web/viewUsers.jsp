@@ -37,14 +37,14 @@
                 </nav>              
             </div>
             <main class="column middle">
-            <%
-                UserDAO dao = new UserDAO();
-                List<User> list = dao.listAdmin();
-                Iterator<User> iter = list.iterator();
-                User user = null;
-                while(iter.hasNext()){
-                    user = iter.next();
-            %>
+                <%
+                    UserDAO dao = new UserDAO();
+                    List<User> list = dao.listAdmin();
+                    Iterator<User> iter = list.iterator();
+                    User user = null;
+                    while(iter.hasNext()){
+                        user = iter.next();
+                %>
                 <article class="">
                     <p><%= user.getCode()%></p>
                 </article>

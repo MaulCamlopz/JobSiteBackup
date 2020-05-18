@@ -45,13 +45,14 @@ public class UserDAO implements UserCRUD {
     
     public List listAdmin (){
         ArrayList<User> list = new ArrayList<>();
-        String sql = "select nickname from user where user_type = 'company' or user_type = 'student'";
+        String sql = "select id, nickname from user where user_type = 'company' or user_type = 'student'";
         try {
             conn = connDB.getConnection();
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
                 User user = new User();
+                user.setId(rs.getInt("id"));
                 user.setCode(rs.getString("nickname"));
                 list.add(user);
             }
