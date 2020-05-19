@@ -81,7 +81,7 @@
 
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex" href="login_jobsite.html">
+                                    <a class="nav-link d-flex" href="index.jsp">
                                         <i class="far fa-user mr-2 tm-logout-icon"></i>
                                         <span>Salir</span>
                                     </a>
@@ -128,8 +128,8 @@
                                             <input type="checkbox" aria-label="Checkbox">
                                         </th>
                                         <td class="user-email"><%= preUser.getEmail()%></td>
-                                        <td class=""><%= preUser.getTypeC()%></td>
-                                        <td class=""><%= preUser.getCommentary()%></td>
+                                        <td><%= preUser.getTypeC()%></td>
+                                        <td><%= preUser.getCommentary()%></td>
                                         <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
                                     </tr>
                                     <%}%>
@@ -209,7 +209,7 @@
     <script>
         $(function () {
             $('.user-email').on('click', function () {
-                window.location.href = "admin_edit_user.html";
+                window.location.href = "adminEditUser.jsp?email=<%= preUser.getEmail()%>&id=<%= preUser.getId()%>";
             });
         })
     </script>

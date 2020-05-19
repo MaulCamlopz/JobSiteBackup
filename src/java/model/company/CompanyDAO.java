@@ -43,4 +43,26 @@ public class CompanyDAO {
         return company;
     }
     
+    public Company readCompany(int id) {
+        Company company = new Company();
+        
+        String sql = "select * from company where id = " + id;
+        try {
+            conn = connDB.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                company.setId(rs.getInt("id"));
+                company.setName(rs.getString("name"));
+                company.setEmail(rs.getString("email"));
+                company.setPhone(rs.getString("phone"));
+                company.setAddress(rs.getString("address"));
+                company.setIdRep(rs.getInt("Legal_Representative_id"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return company;
+    }
+    
 }

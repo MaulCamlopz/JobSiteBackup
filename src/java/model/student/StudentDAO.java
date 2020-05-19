@@ -40,6 +40,13 @@ public class StudentDAO implements StudentCRUD{
                 student.setId(rs.getInt("id"));
                 student.setName(rs.getString("name"));
                 student.setLastName(rs.getString("last_name"));
+                student.setCareer(rs.getString("college_career"));
+                student.setUniversity(rs.getString("university"));
+                student.setEmail(rs.getString("email"));
+                student.setPhone(rs.getString("phone"));
+                student.setAddress(rs.getString("address"));
+                student.setCity(rs.getString("City_State"));
+                student.setCountry(rs.getString("Country"));
                 student.setIdCv(rs.getInt("CV_id"));
             }
         } catch (Exception e) {

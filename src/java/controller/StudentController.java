@@ -47,7 +47,7 @@ public class StudentController extends HttpServlet {
             StudentDAO sDao = new StudentDAO();
             Student student = sDao.read(user.getId());
             session.setAttribute("student", student);
-            request.getRequestDispatcher("studentProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("studentHome.jsp").forward(request, response);
         }
         
         

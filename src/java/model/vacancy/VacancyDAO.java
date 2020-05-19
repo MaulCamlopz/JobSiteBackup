@@ -100,9 +100,9 @@ public class VacancyDAO {
         return list;
     }
     
-    public List listAdmin (){
+    public List listFull (){
         ArrayList<Vacancy> list = new ArrayList<>();
-        String sql = "select * from vacancy";
+        String sql = "SELECT * FROM VACANCY ORDER BY ID_VACANCY DESC";
         try {
             conn = connDB.getConnection();
             ps = conn.prepareStatement(sql);
@@ -115,6 +115,7 @@ public class VacancyDAO {
                 vacancy.setSalary(rs.getInt("Salary"));
                 vacancy.setWorkHours(rs.getString("Work hours"));
                 vacancy.setAddress(rs.getString("Address_Job"));
+                vacancy.setIdCompany(rs.getInt("Company_id"));
                 list.add(vacancy);
             }
         } catch (Exception e) {

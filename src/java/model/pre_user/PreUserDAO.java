@@ -59,6 +59,21 @@ public class PreUserDAO {
         return list; 
      }
     
+     public boolean delete(String id) {
+        String sql = "DELETE FROM PRE_USER WHERE ID = " + Integer.valueOf(id);
+        int response = 0;
+        try {
+            conn = connDB.getConnection();
+            ps=conn.prepareStatement(sql);
+            response = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(response!=0)
+            return true;
+        else
+            return false;
+    }
     
     
 }

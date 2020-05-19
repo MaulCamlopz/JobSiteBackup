@@ -19,7 +19,20 @@ public class UserDAO implements UserCRUD {
 
     @Override
     public boolean create(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "INSERT INTO USER ( Nickname, Password, user_type) "
+                +"VALUES('"+user.code+"','"+user.pass+"','"+user.type+"')";
+        int response = 0;
+        try {
+            conn = connDB.getConnection();
+            ps=conn.prepareStatement(sql);
+            response = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(response!=0)
+            return true;
+        else
+            return false;
     }
 
     @Override

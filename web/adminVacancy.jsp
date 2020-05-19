@@ -4,6 +4,10 @@
     Author     : b22br
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="model.vacancy.Vacancy"%>
+<%@page import="java.util.List"%>
+<%@page import="model.vacancy.VacancyDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -75,7 +79,7 @@
 
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link d-flex" href="login_jobsite.html">
+                                    <a class="nav-link d-flex" href="index.jsp">
                                         <i class="far fa-user mr-2 tm-logout-icon"></i>
                                         <span>Salir</span>
                                     </a>
@@ -89,7 +93,7 @@
             <!-- row -->
             <div class="row tm-content-row tm-mt-big">
 
-                <!-- List New User -->
+                <!-- List New Vacancy -->
                 <div class="col-xl-8 col-lg-12 tm-md-12 tm-sm-12 tm-col">
                     <div class="bg-white tm-block h-100">
                         
@@ -163,28 +167,30 @@
                     </div>
                 </div>
 
-                <!-- List User -->
+                <!-- List Vacancy -->
+                
+                <%
+                    VacancyDAO daoVacancy = new VacancyDAO();
+                    List<Vacancy> list = daoVacancy.listFull();
+                    Iterator<Vacancy> iter = list.iterator();
+                    Vacancy vacancy = null;
+                    int i = 1;
+                %>
+                
                 <div class="col-xl-4 col-lg-12 tm-md-12 tm-sm-12 tm-col">
                     <div class="bg-white tm-block h-100">
                         <h2 class="tm-block-title d-inline-block">Vacantes disponibles</h2>
                         <table class="table table-hover table-striped mt-3">
                             <tbody>
+                                <%
+                                while(iter.hasNext()){
+                                vacancy = iter.next();
+                                %>
                                 <tr>
-                                    <td>1. Cras efficitur lacus</td>
+                                    <td class="item-vacancy"><%= i++%>. <%= vacancy.getWorkstation()%></td>
                                     <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
                                 </tr>
-                                <tr>
-                                    <td>2. Pellentesque molestie</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>3. Sed feugiat nulla</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>4. Vestibulum varius arcu</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
+                                <%}%>
                             </tbody>
                         </table>
 
@@ -214,10 +220,17 @@
     <script>
         $(function () {
             $('.user-email').on('click', function () {
-                window.location.href = "admin_edit_user.html";
+                window.location.href = "adminVacancy.jsp";
             });
         })
     </script>
-
+    <script>
+        $(function () {
+            $('.item-vacancy').on('click', function () {
+                window.location.href = "adminVacancy.jsp";
+                
+            });
+        })
+    </script>
 </body>
 </html>

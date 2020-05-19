@@ -1,18 +1,16 @@
 <%-- 
-    Document   : studentCV
-    Created on : 1/05/2020, 02:07:06 PM
+    Document   : studentVacancy
+    Created on : 18/05/2020, 07:49:56 PM
     Author     : b22br
 --%>
 
+<%@page import="model.company.Company"%>
+<%@page import="model.company.CompanyDAO"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="model.cv.CV"%>
-<%@page import="model.cv.CVDAO"%>
-<%@page import="model.student.Student"%>
-<%@page import="model.user.UserDAO"%>
-<%@page import="model.user.User"%>
-<%@page import="model.student.StudentDAO"%>
+<%@page import="model.vacancy.Vacancy"%>
+<%@page import="java.util.List"%>
+<%@page import="model.vacancy.VacancyDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CV - Jobsite</title>
+    <title>Vacancy - Jobsite</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
@@ -55,7 +53,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="studentVacancy.jsp">Vacantes</a>
+                                    <a class="nav-link active" href="studentVacancy.jsp">Vacantes</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -77,7 +75,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="studentProfile.jsp">Perfil</a>
-                                        <a class="dropdown-item active" href="studentCV.jsp">CV</a>
+                                        <a class="dropdown-item" href="studentCV.jsp">CV</a>
                                     </div>
                                 </li>
 
@@ -94,97 +92,109 @@
                     </nav>
                 </div>
             </div>
-            
-            <!-- Set Student Attributes -->
-            <%
-            Student student = (Student)session.getAttribute("student");
-            CV cv = new CV();
-            CVDAO cvdao = new CVDAO();
-            cv.setSkills(cvdao.readSkills(student.getIdCv()));
-            student.setCv(cv);
-            %>
-            
+
             <!-- Content -->
             <div class="row tm-content-row tm-mt-big">
-
-                <div class="col-xl-4 col-lg-12 tm-md-12 tm-sm-12 tm-col">
+                
+                <%
+                    VacancyDAO daoVacancy = new VacancyDAO();
+                    List<Vacancy> list = daoVacancy.listFull();
+                    Iterator<Vacancy> iter = list.iterator();
+                    Vacancy vacancy = null;
+                    
+                    CompanyDAO daoCompany = new CompanyDAO();
+                    Company company = new Company();
+                %>
+                
+                <!-- Vacantes -->
+                <div class="col-xl-8 col-lg-12 tm-md-12 tm-sm-12 tm-col">
                     <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title d-inline-block">Cursos</h2>
-                        <table class="table table-hover table-striped mt-3">
-                            <tbody>
-                                <tr>
-                                    <td>1. Introducción a la Inteligencia Artificial</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>2. Bases matemáticas para estudiar ingeniería</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>3. Android: Introducción a la Programación</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>4. Global Software Development</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                            </tbody>
-                        </table>
-    
-                        <a href="#" class="btn btn-primary tm-table-mt">Agregar</a>
+                        <div class="row">
+                            <div class="col-md-8 col-sm-12">
+                                <h2 class="tm-block-title d-inline-block">Vacantes</h2>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped tm-table-striped-even mt-3">
+                                <thead>
+                                    <tr class="tm-bg-gray">
+                                        <th scope="col">Empresa</th>
+                                        <th scope="col">Puesto</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Sueldo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                    while(iter.hasNext()){
+                                    vacancy = iter.next();
+                                    company = daoCompany.readCompany(vacancy.getIdCompany());
+                                    %>
+                                    <tr>
+                                        <td><%= company.getName()%></td>
+                                        <td class="item-vacancy"><%= vacancy.getWorkstation()%></td>
+                                        <td><%= vacancy.getDescription()%></td>
+                                        <td>$<%= vacancy.getSalary()%> mensuales</td>
+                                    </tr>
+                                    <%}%>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- <div class="tm-table-mt tm-table-actions-row">
+                            <div class="tm-table-actions-col-right">
+                                <span class="tm-pagination-label">Page</span>
+                                <nav aria-label="Page navigation" class="d-inline-block">
+                                    <ul class="pagination tm-pagination">
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <span class="tm-dots d-block">...</span>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">13</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">14</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
 
+                <!-- Postulaciones -->
                 <div class="col-xl-4 col-lg-12 tm-md-12 tm-sm-12 tm-col">
                     <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title d-inline-block">Habilidades</h2>
-                        <table class="table table-hover table-striped mt-3">
-                            <tbody>
-                                <%
-                                Iterator<String> skills = cv.getSkills().iterator();
-                                int i = 1;
-                                while(skills.hasNext()){                  
-                                %>
-                                <tr>
-                                    <td><%=i++%>. <%=skills.next()%></td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <%}%>
-                            </tbody>
-                        </table>
-    
-                        <a href="#" class="btn btn-primary tm-table-mt">Agregar</a>
-                    </div>
-                </div>
-
-
-                <div class="col-xl-4 col-lg-12 tm-md-12 tm-sm-12 tm-col">
-                    <div class="bg-white tm-block h-100">
-                        <h2 class="tm-block-title d-inline-block">Idiomas</h2>
+                        <h2 class="tm-block-title d-inline-block">Postulaciones</h2>
                         <table class="table table-hover table-striped mt-3">
                             <tbody>
                                 <tr>
-                                    <td>1. Español</td>
+                                    <td>1. DESARROLLADOR(A) REALIDAD VIRUTAL EN UNITY 3D</td>
                                     <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
                                 </tr>
                                 <tr>
-                                    <td>2. Ingles</td>
+                                    <td>2. Desarrollador Web Backend (Javascript) - Desarrollador Back End</td>
                                     <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
                                 </tr>
                                 <tr>
-                                    <td>3. Frances</td>
+                                    <td>3. Desarrollo de Juegos Interactivos</td>
+                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>4. Programador Linux</td>
+                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>5. Docente Programador De Videojuegos</td>
                                     <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
                                 </tr>
                             </tbody>
                         </table>
-    
-                        <a href="#" class="btn btn-primary tm-table-mt">Agregar</a>
                     </div>
                 </div>
 
                 
             </div>
-
 
             <footer class="row tm-mt-big">
                 <div class="col-12 font-weight-light">
@@ -202,61 +212,12 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
-    
+    <script>
+        $(function () {
+            $('.item-vacancy').on('click', function () {
+                window.location.href = "edit-product.html";
+            });
+        })
+    </script>
 </body>
 </html>
-
-<!--
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <title>Perfil</title>
-    </head>
-    <body>
-        
-        <div class="topnav">
-            <a href="homeStudent.jsp" class="">Logo</a>
-            <a href="#" class="">About</a>
-            <a href="#" class="">Values</a>
-            <a href="#" class="">News</a>
-            <a href="#" class="">Contact</a>
-            <a href="#" class="">Clients</a>
-            <a href="#" class="">Partners</a>
-        </div>
-        
-        <div class="row">
-            <div class="column side" >
-                <nav class="sidebar">
-                    <a href="studentProfile.jsp">Perfil</a>
-                    <a href="studentCV.jsp">Mi CV</a>
-                    <a href="#">Vacantes</a>
-                </nav>              
-            </div>
-            <main class="column middle">
-                <h1>Curriculum </h1>
-                <table border="1" >
-                <thead>
-                    <tr>
-                        <th>Habilidades</th>
-                        <th><a class="link" href="#">Agregar</a></th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <a class="link" href="#">Borrar</a>
-                        </td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-            </main>
-        </div>
-        <footer class="footer"><p>&copy; 2020 Kysuphanmem</p></footer>
-    </body>
-</html>-->
