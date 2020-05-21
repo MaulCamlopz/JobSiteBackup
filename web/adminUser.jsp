@@ -128,9 +128,16 @@
                                             <input type="checkbox" aria-label="Checkbox">
                                         </th>
                                         <td class="user-email"><%= preUser.getEmail()%></td>
-                                        <td><%= preUser.getTypeC()%></td>
+                                        <td><%=preUser.getId()%>.<%= preUser.getTypeC()%></td>
                                         <td><%= preUser.getCommentary()%></td>
-                                        <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                                        <td>
+                                            <form action="AdminController" method="post">
+                                            <input name="id" type="hidden" value="<%=preUser.getId()%>">
+                                            <button type="submit" name="action" value="deletePreuser">
+                                                <i class="fas fa-trash-alt tm-trash-icon"></i>
+                                            </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     <%}%>
                                 </tbody>
@@ -177,7 +184,14 @@
                                 %>
                                 <tr>
                                     <td><%= user.getId()%>. <%= user.getCode()%></td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                                    <td class="tm-trash-icon-cell">
+                                        <form action="AdminController" method="post">
+                                            <input name="id" type="hidden" value="<%=user.getId()%>">
+                                            <button type="submit" name="action" value="deleteUser">
+                                                <i class="fas fa-trash-alt tm-trash-icon"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 <%}%>
                             </tbody>

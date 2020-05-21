@@ -16,7 +16,7 @@ public class PreUserDAO {
     
     public boolean create(PreUser user) {
         String sql = "INSERT INTO pre_user (email, typeC, typeN, commentary, active) "
-                +"VALUES('"+user.getEmail()+"','"+user.getTypeC()+"',"+user.getTypeN()+",'"+user.getCommentary()+"',"+user.isActive()+")";
+                +"VALUES('"+user.getEmail()+"','"+user.getTypeC()+"',"+user.getTypeN()+",'"+user.getCommentary()+"',"+0+")";
         int response = 0;
         try {
             conn = connDB.getConnection();
@@ -32,7 +32,7 @@ public class PreUserDAO {
     
      public List list() {
         ArrayList<PreUser> list = new ArrayList<>();
-        String sql = "select * from pre_user where active = 0";
+        String sql = "select * from pre_user";
         
         try {
             conn = connDB.getConnection();

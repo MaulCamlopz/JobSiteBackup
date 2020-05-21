@@ -43,6 +43,43 @@ public class AdminController extends HttpServlet {
         String access = "";
         String action = request.getParameter("action");
         
+        
+        /*switch(action){
+            case "addUser":
+                String id = request.getParameter("id");
+                user.setCode(request.getParameter("nickname"));
+                user.setPass(request.getParameter("password"));
+                user.setType(request.getParameter("type-user"));
+                if(dao.create(user)){
+                    PreUserDAO daoPU = new PreUserDAO();
+                    if(daoPU.delete(id)){
+                        access = "adminUser.jsp";
+                    }else{
+                        access = "adminHome.jsp";
+                    }
+                }else{
+                    access = "adminHome.jsp";
+                }
+                break;
+            case "deleteUser":
+                id = request.getParameter("id");
+                if(dao.delete(id)){
+                    PreUserDAO daoPU = new PreUserDAO();
+                    if(daoPU.delete(id)){
+                        access = "adminUser.jsp";
+                    }else{
+                        access = "adminHome.jsp";
+                    }
+                }else{
+                    access = "adminHome.jsp";
+                }
+                break;
+            default:
+                access = "adminHome.jsp";
+                break;
+                
+        }*/
+        
         if(action.equalsIgnoreCase("addUser")){
             System.out.println("add");
             User user = new User();
@@ -52,6 +89,34 @@ public class AdminController extends HttpServlet {
             user.setPass(request.getParameter("password"));
             user.setType(request.getParameter("type-user"));
             if(dao.create(user)){
+                PreUserDAO daoPU = new PreUserDAO();
+                if(daoPU.delete(id)){
+                    access = "adminUser.jsp";
+                }else{
+                    access = "adminHome.jsp";
+                }
+            }else{
+                access = "adminHome.jsp";
+            }
+        }else if(action.equalsIgnoreCase("deleteUser")){
+            //User user = new User();
+            UserDAO dao = new UserDAO();
+            String id = request.getParameter("id");
+            if(dao.delete(id)){
+                PreUserDAO daoPU = new PreUserDAO();
+                if(daoPU.delete(id)){
+                    access = "adminUser.jsp";
+                }else{
+                    access = "adminHome.jsp";
+                }
+            }else{
+                access = "adminHome.jsp";
+            }
+        }else if(action.equalsIgnoreCase("deletePreuser")){
+            //User user = new User();
+            PreUserDAO dao = new PreUserDAO();
+            String id = request.getParameter("id");
+            if(dao.delete(id)){
                 PreUserDAO daoPU = new PreUserDAO();
                 if(daoPU.delete(id)){
                     access = "adminUser.jsp";

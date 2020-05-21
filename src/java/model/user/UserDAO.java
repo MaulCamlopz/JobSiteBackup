@@ -82,7 +82,35 @@ public class UserDAO implements UserCRUD {
 
     @Override
     public boolean delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM USER WHERE ID = " + id;
+        int response = 0;
+        try {
+            conn = connDB.getConnection();
+            ps=conn.prepareStatement(sql);
+            response = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(response!=0)
+            return true;
+        else
+            return false;
+    }
+    
+    public boolean delete(String id) {
+        String sql = "DELETE FROM USER WHERE ID = " + Integer.valueOf(id);
+        int response = 0;
+        try {
+            conn = connDB.getConnection();
+            ps=conn.prepareStatement(sql);
+            response = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(response!=0)
+            return true;
+        else
+            return false;
     }
 
     
