@@ -17,7 +17,7 @@ public class Vacancy {
     private int idCompany;
     private String workstation;
     private String description;
-    private ArrayList<String> profile; // requirements
+    private ArrayList<String> requirements; // requirements
     private int salary;
     private String workHours;
     private String address;
@@ -58,12 +58,12 @@ public class Vacancy {
         this.description = description;
     }
 
-    public ArrayList<String> getProfile() {
-        return profile;
+    public ArrayList<String> getRequirements() {
+        return requirements;
     }
 
-    public void setProfile(ArrayList<String> profile) {
-        this.profile = profile;
+    public void setRequirements(ArrayList<String> requirements) {
+        this.requirements = requirements;
     }
 
     public int getSalary() {

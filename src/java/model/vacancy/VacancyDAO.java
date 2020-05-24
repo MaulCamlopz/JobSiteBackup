@@ -38,7 +38,7 @@ public class VacancyDAO {
             conn = connDB.getConnection();
             ps=conn.prepareStatement(sql);
             ps.executeUpdate();
-            for(String req: vacancy.getProfile()){
+            for(String req: vacancy.getRequirements()){
                 String sqlReq = "INSERT INTO requirement (ID_Vacancy, item)"
                         +"VALUES ("+vacancy.getId()+", '"+req+"');";
                 ps=conn.prepareStatement(sqlReq);
@@ -64,16 +64,10 @@ public class VacancyDAO {
                 vacancy.setWorkHours(rs.getString("Work hours"));
                 vacancy.setAddress(rs.getString("Address_Job"));
                 vacancy.setInformation(rs.getString("Aditional_information"));
+                vacancy.setRequirements(getRequirements(vacancy.getId()));
                 vacancy.setIdCompany(rs.getInt("Company_id"));
-            }/*
-            String sqlReq = "select * from requirement where ID_Vacancy = "+vacancy.getId();
-            ArrayList<String> profile = new ArrayList<>(); // requirements
-            ps = conn.prepareStatement(sqlReq);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                profile.add(rs.getString("item"));
+                
             }
-            vacancy.setProfile(profile);*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,6 +200,22 @@ public class VacancyDAO {
             return true;
         else
             return false;
+    }
+
+    private ArrayList<String> getRequirements(int idVacancy) {
+        ArrayList<String> list = new ArrayList<>();
+        String sql = "SELECT ITEM FROM REQUIREMENT WHERE ID_VACANCY = " + idVacancy;
+        try {
+            conn = connDB.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(rs.getString("ITEM"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
     
 }

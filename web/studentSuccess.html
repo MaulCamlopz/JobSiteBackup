@@ -1,13 +1,3 @@
-<%-- 
-    Document   : studentHome
-    Created on : 18/05/2020, 07:36:22 PM
-    Author     : b22br
---%>
-
-<%@page import="model.student.Student"%>
-<%@page import="model.student.StudentDAO"%>
-<%@page import="model.user.User"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -90,19 +80,10 @@
                 </div>
             </div>
             
-            <%
-                User user = (User)session.getAttribute("user");
-                StudentDAO sDao = new StudentDAO();
-                Student student = sDao.read(user.getId());
-                session.setAttribute("student", student);
-            %>
-
             <br>
-            <h1 class="text-white">Bienvenido, busca empleo en la sección de vacantes</h1>
+            <h1 class="text-white">Listo!</h1>
             <br>
-            <h3 class="text-white">¡Ánimo! Muchas empresas estan contratando</h3>
-            <br>
-
+            
             <footer class="row tm-mt-big">
                 <div class="col-12 font-weight-light">
                     <p class="d-inline-block tm-bg-black text-white py-2 px-4">

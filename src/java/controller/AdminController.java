@@ -42,43 +42,6 @@ public class AdminController extends HttpServlet {
         String access = "";
         String action = request.getParameter("action");
         
-        
-        /*switch(action){
-            case "addUser":
-                String id = request.getParameter("id");
-                user.setCode(request.getParameter("nickname"));
-                user.setPass(request.getParameter("password"));
-                user.setType(request.getParameter("type-user"));
-                if(dao.create(user)){
-                    PreUserDAO daoPU = new PreUserDAO();
-                    if(daoPU.delete(id)){
-                        access = "adminUser.jsp";
-                    }else{
-                        access = "adminHome.jsp";
-                    }
-                }else{
-                    access = "adminHome.jsp";
-                }
-                break;
-            case "deleteUser":
-                id = request.getParameter("id");
-                if(dao.delete(id)){
-                    PreUserDAO daoPU = new PreUserDAO();
-                    if(daoPU.delete(id)){
-                        access = "adminUser.jsp";
-                    }else{
-                        access = "adminHome.jsp";
-                    }
-                }else{
-                    access = "adminHome.jsp";
-                }
-                break;
-            default:
-                access = "adminHome.jsp";
-                break;
-                
-        }*/
-        
         if(action.equalsIgnoreCase("addUser")){
             System.out.println("add");
             User user = new User();

@@ -8,6 +8,8 @@ package model.student;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import model.ConnectionDB;
 
 /**
@@ -64,5 +66,40 @@ public class StudentDAO implements StudentCRUD{
     public boolean delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public List ListSelectedVacancies(int idStudent){
+        ArrayList<Integer> list = new ArrayList<>();
+        String sql = "SELECT ID_APPLICANT, VACANCY_ID_VACANCY FROM APPLICANT WHERE ID_STUDENT = " + idStudent;
+        try {
+            conn = connDB.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                list.add(rs.getInt("VACANCY_ID_VACANCY"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+     public boolean applyVacancy(String idStudent, String idVacancy) {
+        int response = 0;
+        String sql = "INSERT INTO APPLICANT ( ID_Student, Vacancy_ID_Vacancy)"
+                + " VALUES ("+idStudent+", "+idVacancy+")";
+        try {
+            conn = connDB.getConnection();
+            ps=conn.prepareStatement(sql);
+            response = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         System.out.println("RESPONSE APPLY VACANCY: "+response);
+        if(response!=0)
+            return true;
+        else
+            return false;
+    }
+    
     
 }

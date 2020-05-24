@@ -4,6 +4,8 @@
     Author     : b22br
 --%>
 
+<%@page import="model.student.StudentDAO"%>
+<%@page import="model.student.Student"%>
 <%@page import="model.company.Company"%>
 <%@page import="model.company.CompanyDAO"%>
 <%@page import="java.util.Iterator"%>
@@ -12,7 +14,7 @@
 <%@page import="model.vacancy.VacancyDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -97,6 +99,12 @@
             <div class="row tm-content-row tm-mt-big">
                 
                 <%
+                    
+                    Student student = (Student)session.getAttribute("student");
+                    StudentDAO daoStudent = new StudentDAO();
+                    List<Integer> selectedVacancies = daoStudent.ListSelectedVacancies(student.getId());
+                    Iterator<Integer> iterSelectedVacancies = selectedVacancies.iterator();
+                    
                     VacancyDAO daoVacancy = new VacancyDAO();
                     List<Vacancy> list = daoVacancy.listForActive();
                     Iterator<Vacancy> iter = list.iterator();
@@ -132,7 +140,9 @@
                                     %>
                                     <tr>
                                         <td><%= company.getName()%></td>
-                                        <td class="item-vacancy"><%= vacancy.getWorkstation()%></td>
+                                        <td>
+                                            <a href="studentApplyVacancy.jsp?id=<%= vacancy.getId()%>"><%= vacancy.getWorkstation()%></a>
+                                        </td>
                                         <td><%= vacancy.getDescription()%></td>
                                         <td>$<%= vacancy.getSalary()%> mensuales</td>
                                     </tr>
@@ -168,26 +178,17 @@
                         <h2 class="tm-block-title d-inline-block">Postulaciones</h2>
                         <table class="table table-hover table-striped mt-3">
                             <tbody>
+                                <%
+                                int i;
+                                while(iterSelectedVacancies.hasNext()){
+                                i = iterSelectedVacancies.next();
+                                vacancy = daoVacancy.read(String.valueOf(i));
+                                %>
                                 <tr>
-                                    <td>1. DESARROLLADOR(A) REALIDAD VIRUTAL EN UNITY 3D</td>
+                                    <td><%= i%>. <%= vacancy.getWorkstation() %></td>
                                     <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
                                 </tr>
-                                <tr>
-                                    <td>2. Desarrollador Web Backend (Javascript) - Desarrollador Back End</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>3. Desarrollo de Juegos Interactivos</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>4. Programador Linux</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>5. Docente Programador De Videojuegos</td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                </tr>
+                                <%}%>
                             </tbody>
                         </table>
                     </div>
@@ -212,12 +213,6 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
-    <script>
-        $(function () {
-            $('.item-vacancy').on('click', function () {
-                window.location.href = "edit-product.html";
-            });
-        })
-    </script>
+    
 </body>
 </html>

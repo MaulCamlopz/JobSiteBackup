@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +38,7 @@ public class StudentController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession();
+        /*HttpSession session = request.getSession();
         
         User user = (User)session.getAttribute("user");
         
@@ -48,8 +49,29 @@ public class StudentController extends HttpServlet {
             Student student = sDao.read(user.getId());
             session.setAttribute("student", student);
             request.getRequestDispatcher("studentHome.jsp").forward(request, response);
+        }*/
+        
+        String access = "";
+        String action = request.getParameter("action");
+        
+        if(action.equalsIgnoreCase("applyVacancy")){
+            
+            StudentDAO dao = new StudentDAO();
+            String idStudent = request.getParameter("idStudent");
+            String idVacancy = request.getParameter("idVacancy");
+            
+            if(dao.applyVacancy(idStudent, idVacancy)){
+                access = "studentSuccess.html";
+            }else{
+                access = "studentError.html";
+            }
+            
+        } else{
+            access = "studentError.html";
         }
         
+        RequestDispatcher view = request.getRequestDispatcher(access);
+        view.forward(request, response);
         
     }
 
