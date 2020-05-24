@@ -14,11 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.company.Company;
-import model.company.CompanyDAO;
-import model.pre_user.PreUserDAO;
-import model.user.User;
-import model.user.UserDAO;
+import model.company.*;
+import model.vacancy.*;
+import model.pre_user.*;
+import model.user.*;
 
 /**
  *
@@ -91,12 +90,12 @@ public class AdminController extends HttpServlet {
             if(dao.create(user)){
                 PreUserDAO daoPU = new PreUserDAO();
                 if(daoPU.delete(id)){
-                    access = "adminUser.jsp";
+                    access = "adminSuccess.html";
                 }else{
-                    access = "adminHome.jsp";
+                    access = "adminError.html";
                 }
             }else{
-                access = "adminHome.jsp";
+                access = "adminError.html";
             }
         }else if(action.equalsIgnoreCase("deleteUser")){
             //User user = new User();
@@ -105,31 +104,43 @@ public class AdminController extends HttpServlet {
             if(dao.delete(id)){
                 PreUserDAO daoPU = new PreUserDAO();
                 if(daoPU.delete(id)){
-                    access = "adminUser.jsp";
+                    access = "adminSuccess.html";
                 }else{
-                    access = "adminHome.jsp";
+                    access = "adminError.html";
                 }
             }else{
-                access = "adminHome.jsp";
+                access = "adminError.html";
             }
         }else if(action.equalsIgnoreCase("deletePreuser")){
             //User user = new User();
             PreUserDAO dao = new PreUserDAO();
             String id = request.getParameter("id");
             if(dao.delete(id)){
-                PreUserDAO daoPU = new PreUserDAO();
-                if(daoPU.delete(id)){
-                    access = "adminUser.jsp";
-                }else{
-                    access = "adminHome.jsp";
-                }
+                access = "adminSuccess.html";
             }else{
-                access = "adminHome.jsp";
+                access = "adminError.html";
             }
-        }else{
-            access = "adminHome.jsp";
-        }
         
+        } else if(action.equalsIgnoreCase("addVacancy")){
+            String id = request.getParameter("id");
+            VacancyDAO dao = new VacancyDAO();
+            if(dao.setValid(id)){
+                access = "adminSuccess.html";
+            }else{
+                access = "adminError.html";
+            }
+        } else if(action.equalsIgnoreCase("deleteVacancy")){
+            String id = request.getParameter("id");
+            VacancyDAO dao = new VacancyDAO();
+            if(dao.delete(id)){
+                access = "adminSuccess.html";
+            }else{
+                access = "adminError.html";
+            }
+        } else{
+            access = "adminError.html";
+        }
+        //
         RequestDispatcher view = request.getRequestDispatcher(access);
         view.forward(request, response);
         

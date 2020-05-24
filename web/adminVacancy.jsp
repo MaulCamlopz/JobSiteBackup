@@ -4,6 +4,8 @@
     Author     : b22br
 --%>
 
+<%@page import="model.company.Company"%>
+<%@page import="model.company.CompanyDAO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="model.vacancy.Vacancy"%>
 <%@page import="java.util.List"%>
@@ -92,8 +94,18 @@
             </div>
             <!-- row -->
             <div class="row tm-content-row tm-mt-big">
+                
+                <%
+                    VacancyDAO daoVacancy = new VacancyDAO();
+                    List<Vacancy> listActive = daoVacancy.listForActive();
+                    List<Vacancy> listInactive = daoVacancy.listForInactive();
+                    Iterator<Vacancy> iterActive = listActive.iterator();
+                    Iterator<Vacancy> iterInactive = listInactive.iterator();
+                    Vacancy vacancy = null;
+                %>
 
-                <!-- List New Vacancy -->
+                <!-- List Vacancy INACTIVE -->
+                
                 <div class="col-xl-8 col-lg-12 tm-md-12 tm-sm-12 tm-col">
                     <div class="bg-white tm-block h-100">
                         
@@ -117,29 +129,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    <%
+                                    CompanyDAO daoCompany = new CompanyDAO();
+                                    Company company = new Company();
+                                    while(iterInactive.hasNext()){
+                                    vacancy = iterInactive.next();
+                                    company = daoCompany.readCompany(vacancy.getIdCompany());
+                                    %>
                                     <tr>
                                         <th scope="row">
                                             <input type="checkbox" aria-label="Checkbox">
                                         </th>
-                                        <td class="user-email">Company</td>
-                                        <td class="">text</td>
-                                        <td class="">Hola munsd hsd fds dsf dssdhfsdh fhsdfhds fdo asijdg lksjf ñkgj sñdkfjgñlksjd fgklj sdñkfjg</td>
+                                        <td class=""><%= company.getName()%></td>
+                                        <td class="">
+                                            <a href="adminAddVacancy.jsp?id=<%= vacancy.getId()%>"><%= vacancy.getWorkstation()%></a>
+                                        </td>
+                                        <td class=""><%= vacancy.getDescription()%></td>
                                         <!-- <td>2018-10-28</td> -->
-                                        <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                                        <td>
+                                            <form action="AdminController" method="post">
+                                            <input name="id" type="hidden" value="<%=vacancy.getId()%>">
+                                            <button type="submit" name="action" value="deleteVacancy">
+                                                <i class="fas fa-trash-alt tm-trash-icon"></i>
+                                            </button>
+                                            </form>
+                                        </td>
                                     </tr>
-                                    
-                                    <tr>
-                                        <th scope="row">
-                                            <input type="checkbox" aria-label="Checkbox">
-                                        </th>
-                                        <td class="user-email">Company</td>
-                                        <td class="">text</td>
-                                        <td class="">Hola soy estudiante</td>
-                                        <!-- <td>2018-10-24</td> -->
-                                        <td><i class="fas fa-trash-alt tm-trash-icon"></i></td>
-                                    </tr>
-
+                                    <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -167,13 +183,9 @@
                     </div>
                 </div>
 
-                <!-- List Vacancy -->
+                <!-- List Vacancy ACTIVE -->
                 
                 <%
-                    VacancyDAO daoVacancy = new VacancyDAO();
-                    List<Vacancy> list = daoVacancy.listFull();
-                    Iterator<Vacancy> iter = list.iterator();
-                    Vacancy vacancy = null;
                     int i = 1;
                 %>
                 
@@ -183,12 +195,19 @@
                         <table class="table table-hover table-striped mt-3">
                             <tbody>
                                 <%
-                                while(iter.hasNext()){
-                                vacancy = iter.next();
+                                while(iterActive.hasNext()){
+                                vacancy = iterActive.next();
                                 %>
                                 <tr>
-                                    <td class="item-vacancy"><%= i++%>. <%= vacancy.getWorkstation()%></td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                                    <td class=""><%= i++%>. <%= vacancy.getWorkstation()%></td>
+                                    <td class="tm-trash-icon-cell">
+                                        <form action="AdminController" method="post">
+                                            <input name="id" type="hidden" value="<%=vacancy.getId()%>">
+                                            <button type="submit" name="action" value="deleteVacancy">
+                                                <i class="fas fa-trash-alt tm-trash-icon"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 <%}%>
                             </tbody>
@@ -217,20 +236,5 @@
 
     <script src="js/bootstrap.min.js"></script>
     
-    <script>
-        $(function () {
-            $('.user-email').on('click', function () {
-                window.location.href = "adminVacancy.jsp";
-            });
-        })
-    </script>
-    <script>
-        $(function () {
-            $('.item-vacancy').on('click', function () {
-                window.location.href = "adminVacancy.jsp";
-                
-            });
-        })
-    </script>
 </body>
 </html>

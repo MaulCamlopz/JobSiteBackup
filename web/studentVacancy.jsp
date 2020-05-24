@@ -98,7 +98,7 @@
                 
                 <%
                     VacancyDAO daoVacancy = new VacancyDAO();
-                    List<Vacancy> list = daoVacancy.listFull();
+                    List<Vacancy> list = daoVacancy.listForActive();
                     Iterator<Vacancy> iter = list.iterator();
                     Vacancy vacancy = null;
                     

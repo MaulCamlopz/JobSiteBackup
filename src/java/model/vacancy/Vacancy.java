@@ -21,6 +21,7 @@ public class Vacancy {
     private int salary;
     private String workHours;
     private String address;
+    private String information;
 
     public Vacancy() {
     }
@@ -88,5 +89,15 @@ public class Vacancy {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+    
+    
     
 }

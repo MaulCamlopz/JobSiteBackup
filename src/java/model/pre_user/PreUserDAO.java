@@ -60,6 +60,7 @@ public class PreUserDAO {
      }
     
      public boolean delete(String id) {
+         System.out.println("DELETE PREUSER");
         String sql = "DELETE FROM PRE_USER WHERE ID = " + Integer.valueOf(id);
         int response = 0;
         try {
@@ -69,6 +70,9 @@ public class PreUserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        System.out.println("RESPONSE: " + response);
+        
         if(response!=0)
             return true;
         else

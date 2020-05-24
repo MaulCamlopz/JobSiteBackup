@@ -127,7 +127,9 @@
                                         <th scope="row">
                                             <input type="checkbox" aria-label="Checkbox">
                                         </th>
-                                        <td class="user-email"><%= preUser.getEmail()%></td>
+                                        <td class="user-email">
+                                            <a href="adminEditUser.jsp?email=<%= preUser.getEmail()%>&id=<%= preUser.getId()%>"><%= preUser.getEmail()%></a>
+                                        </td>
                                         <td><%=preUser.getId()%>.<%= preUser.getTypeC()%></td>
                                         <td><%= preUser.getCommentary()%></td>
                                         <td>
