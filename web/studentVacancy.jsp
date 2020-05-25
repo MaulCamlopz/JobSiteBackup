@@ -4,6 +4,7 @@
     Author     : b22br
 --%>
 
+<%@page import="model.vacancy.VacancyRequirement"%>
 <%@page import="model.student.StudentDAO"%>
 <%@page import="model.student.Student"%>
 <%@page import="model.company.Company"%>
@@ -102,8 +103,8 @@
                     
                     Student student = (Student)session.getAttribute("student");
                     StudentDAO daoStudent = new StudentDAO();
-                    List<Integer> selectedVacancies = daoStudent.ListSelectedVacancies(student.getId());
-                    Iterator<Integer> iterSelectedVacancies = selectedVacancies.iterator();
+                    List<VacancyRequirement> selectedVacancies = daoStudent.ListSelectedVacancies(student.getId());
+                    Iterator<VacancyRequirement> iterSelectedVacancies = selectedVacancies.iterator();
                     
                     VacancyDAO daoVacancy = new VacancyDAO();
                     List<Vacancy> list = daoVacancy.listForActive();
@@ -181,12 +182,20 @@
                                 <%
                                 int i;
                                 while(iterSelectedVacancies.hasNext()){
-                                i = iterSelectedVacancies.next();
-                                vacancy = daoVacancy.read(String.valueOf(i));
+                                VacancyRequirement req = iterSelectedVacancies.next();
+                                vacancy = daoVacancy.read(String.valueOf(req.getIdVacancy()));
                                 %>
                                 <tr>
-                                    <td><%= i%>. <%= vacancy.getWorkstation() %></td>
-                                    <td class="tm-trash-icon-cell"><i class="fas fa-trash-alt tm-trash-icon"></i></td>
+                                    <td><%= req.getIdVacancy()%>. <%= vacancy.getWorkstation() %></td>
+                                    <td class="tm-trash-icon-cell">
+                                        <form action="StudentController" method="post">
+                                            <input name="idRequirement" type="hidden" value="<%= req.getIdRequirement() %>">
+                                            <button type="submit" name="action" value="deleteVacancy" class="btn btn-primary">
+                                                <i class="fas fa-trash-alt tm-trash-icon"></i>
+                                            </button>
+                                        </form>
+                                        
+                                    </td>
                                 </tr>
                                 <%}%>
                             </tbody>

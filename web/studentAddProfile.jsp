@@ -1,15 +1,12 @@
 <%-- 
-    Document   : studentProfile
-    Created on : 1/05/2020, 02:08:52 PM
+    Document   : studentAddProfile
+    Created on : 24/05/2020, 11:17:54 PM
     Author     : b22br
 --%>
 
 <%@page import="model.student.Student"%>
-<%@page import="model.user.UserDAO"%>
 <%@page import="model.user.User"%>
-<%@page import="model.student.StudentDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,63 +89,84 @@
                 </div>
             </div>
             
-            <%
-            User user = (User)session.getAttribute("user");
-            Student student = (Student)session.getAttribute("student");
-            int id = student.getId();
-            String name = student.getName()==null?"- - -":student.getName();
-            String lastName = student.getLastName()==null?"":student.getLastName();
-            String university = student.getUniversity()==null?"- - -":student.getUniversity();
-            String career = student.getCareer()==null?"- - -":student.getCareer();
-            String phone = student.getPhone()==null?"- - -":student.getPhone();
-            String email = student.getEmail()==null?"- - -":student.getEmail();
-            String address = student.getAddress()==null?"- - -":student.getAddress();
-            String country = student.getCountry()==null?"- - -":student.getCountry();
-            String city = student.getCity()==null?"- - -":student.getCity();
-            %>
-            <%=student.getName()%> <%=student.getLastName()%>
             <!-- row -->
-            <div class="row tm-content-row tm-mt-big">
-                
-                <div class="col-xl-8 col-lg-12 tm-md-12 tm-sm-12 tm-col">
-                    <div class="bg-white tm-block h-100">
-                        <div class="row">
-                            <div class="col-md-8 col-sm-12">
-                                <h1 class="tm-block-title d-inline-block">Información personal</h1>
-                            </div>
-                            <div class="col-md-4 col-sm-12 text-right">
-                                <a href="<%=id!=0?"studentEditProfile.jsp":"studentAddProfile.jsp"%>" class="btn btn-small btn-primary">Editar</a>
-                            </div>
+        <div class="row tm-mt-big">
+            
+            <%
+                User user = (User)session.getAttribute("user");
+                Student student = new Student();
+            %>
+
+            <div class="col-xl-8 col-lg-10 col-md-12 col-sm-12">
+                <div class="bg-light tm-block">
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block">Agregar información</h2>
                         </div>
-                        
-                        <h5>ID User</h5>
-                        <p> <%=user.getId()%> <p>
-                        <h5>ID Student</h5>
-                        <p> <%=id%> <p>
-                        <h5>Nombre</h5>
-                        <p> <%=name%> <%=lastName%><p>
-                        <h5>Universidad</h5>
-                        <p><%=university%></p>
-                        <h5>Carrera</h5>
-                        <p><%=career%></p>
-                        <h5>Teléfono</h5>
-                        <p><%=phone%></p>
-                        <h5>Email</h5>
-                        <p><%=email%></p>
-                        <h5>Dirección</h5>
-                        <p><%=address%></p>
-                        <h5>País</h5>
-                        <p><%=country%></p>
-                        <h5>Estado</h5>
-                        <p><%=city%></p>
+                    </div>
+                    
+                    <div class="row mt-4 tm-edit-product-row">
+
+                        <div class="col-xl-7 col-lg-7 col-md-12">
+                            <form action="StudentController" method="post" class="tm-edit-product-form">
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Nombre</label>
+                                    <input name="name" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Apellido</label>
+                                    <input name="lastName" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Teléfono</label>
+                                    <input  name="phone" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Email</label>
+                                    <input name="email" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Universidad</label>
+                                    <input name="university" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Carrera</label>
+                                    <input name="career" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Domicilio</label>
+                                    <input name="address" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">País</label>
+                                    <input name="country" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Estado</label>
+                                    <input name="city" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                </div>
+                                
+                                <input name="idUser" type="hidden" value="<%= user.getId() %>">
+                                
+                                <div class="row">
+                                    <div class="col-12 col-sm-8 tm-btn-right">
+                                        <button type="submit" name="action" value="createStudent" class="btn btn-primary">Aceptar</button>
+                                       
+                                    </div>
+                                </div>
+                                
+                                
+                            </form>
+                        </div>
                         
                     </div>
                 </div>
-
-                
-                        
             </div>
 
+        </div>
+            
+            
             <footer class="row tm-mt-big">
                 <div class="col-12 font-weight-light">
                     <p class="d-inline-block tm-bg-black text-white py-2 px-4">

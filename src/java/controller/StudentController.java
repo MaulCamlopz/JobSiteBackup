@@ -66,10 +66,53 @@ public class StudentController extends HttpServlet {
                 access = "studentError.html";
             }
             
+        } else if(action.equalsIgnoreCase("deleteVacancy")){
+            
+            StudentDAO dao = new StudentDAO();
+            String idStudent = request.getParameter("idRequirement");
+            
+            if(dao.deleteVacancy(idStudent)){
+                access = "studentSuccess.html";
+            }else{
+                access = "studentError.html";
+            }
+            
+        } else if(action.equalsIgnoreCase("createStudent")){
+            
+            Student student = new Student();
+            StudentDAO dao = new StudentDAO();
+            student.setName(request.getParameter("name"));
+            student.setLastName(request.getParameter("lastName"));
+            student.setPhone(request.getParameter("phone"));
+            student.setEmail(request.getParameter("email"));
+            student.setUniversity(request.getParameter("university"));
+            student.setCareer(request.getParameter("career"));
+            student.setAddress(request.getParameter("address"));
+            student.setCountry(request.getParameter("country"));
+            student.setCity(request.getParameter("city"));
+            int idUser = Integer.valueOf(request.getParameter("idUser"));
+            
+            if(dao.create(student, idUser)){
+                access = "studentSuccess.html";
+            }else{
+                access = "studentError.html";
+            }
+            
+        } else if(action.equalsIgnoreCase("deleteStudent")){
+            
+            StudentDAO dao = new StudentDAO();
+            int idStudent = Integer.valueOf(request.getParameter("idStudent"));
+            
+            if(dao.delete(idStudent)){
+                access = "studentSuccess.html";
+            }else{
+                access = "studentError.html";
+            }
+            
         } else{
             access = "studentError.html";
         }
-        
+        //deleteStudent
         RequestDispatcher view = request.getRequestDispatcher(access);
         view.forward(request, response);
         
