@@ -84,8 +84,8 @@ public class StudentDAO {
                 student.setIdCv(rs.getInt("CV_id"));
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println("RETURN STUDENT: "+student.getName());
         return student;
     }
 
