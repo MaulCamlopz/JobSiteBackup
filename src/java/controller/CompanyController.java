@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,8 @@ import model.company.CompanyDAO;
 import model.student.Student;
 import model.student.StudentDAO;
 import model.user.User;
+import model.vacancy.Vacancy;
+import model.vacancy.VacancyDAO;
 
 /**
  *
@@ -38,18 +41,38 @@ public class CompanyController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
         
-        User user = (User)session.getAttribute("user");
+        String access = "";
+        String action = request.getParameter("action");
         
-        if(user == null){
-            request.getRequestDispatcher("ErrorSessionController");
-        }else{
-            CompanyDAO cDao = new CompanyDAO();
-            Company company = cDao.read(user.getId());
-            session.setAttribute("company", company);
-            request.getRequestDispatcher("companyProfile.jsp").forward(request, response);
+        final String erroPage = "companyError.jsp";
+        final String successPage = "companySuccess.jsp";
+        
+        if(action.equalsIgnoreCase("addVacancy")){
+            System.out.println("ADD VACANCY");
+            Vacancy vacancy = new Vacancy();
+            VacancyDAO dao = new VacancyDAO();
+            vacancy.setIdCompany(Integer.valueOf(request.getParameter("idCompany")));
+            vacancy.setWorkstation(request.getParameter("workstation"));
+            vacancy.setId(Integer.valueOf(request.getParameter("idVacancy")));
+            vacancy.setWorkHours(request.getParameter("workhours"));
+            vacancy.setAddress(request.getParameter("address"));
+            vacancy.setDescription(request.getParameter("description"));
+            vacancy.setSalary(Integer.valueOf(request.getParameter("salary")));
+            if(dao.create(vacancy)){
+                access = successPage;
+            }else{
+                access = erroPage;
+            }
+        } else{
+            access = erroPage;
         }
+        
+        //
+        
+        RequestDispatcher view = request.getRequestDispatcher(access);
+        view.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

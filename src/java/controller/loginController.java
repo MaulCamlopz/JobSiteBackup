@@ -26,7 +26,7 @@ public class loginController extends HttpServlet {
     
     String home = "view/home.jsp";
     final String homeAdmin = "adminHome.jsp";
-    final String homeCompany = "CompanyController";
+    final String homeCompany = "companyHome.jsp";
     final String homeStudent = "studentHome.jsp";
     
     User user = new User();

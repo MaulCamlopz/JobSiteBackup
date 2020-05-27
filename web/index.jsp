@@ -48,13 +48,13 @@
                                 </div>
                                 <div class="input-group mt-3">
                                     <p>
-                                        <em>¿Aún no tienes clave y contraseña? <a href="signup.jsp" class="tm-footer-link">Registrate</a>
-                                        </em>
+                                        <em>¿Aún no tienes clave y contraseña? <a href="signup.jsp" class="tm-footer-link">Registrate</a></em>
                                     </p>
                                 </div>
                             </form>
                         </div>
                     </div>
+                    <p><a href="help.html" class="tm-footer-link">Ayuda</a></p>
                 </div>
             </div>
         </div>

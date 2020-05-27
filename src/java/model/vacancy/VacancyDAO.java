@@ -25,7 +25,7 @@ public class VacancyDAO {
     ResultSet rs;
     
     public boolean create(Vacancy vacancy) {
-        
+        int response = 0;
         String sql = "INSERT INTO vacancy (ID_Vacancy, Workstation, Description,"
                 + " Professional_Profile, Salary, `Work hours`, Address_Job,"
                 + " `Due date`, Aditional_information, Company_id, Vacancycol, active)"
@@ -33,11 +33,10 @@ public class VacancyDAO {
                 + vacancy.getDescription()+"', '', "+vacancy.getSalary()+", '"
                 + vacancy.getWorkHours()+"', '"+vacancy.getAddress()+"', '', '', "
                 + vacancy.getIdCompany() +", '',"+0+");";
-        
         try {
             conn = connDB.getConnection();
             ps=conn.prepareStatement(sql);
-            ps.executeUpdate();
+            response = ps.executeUpdate();
             for(String req: vacancy.getRequirements()){
                 String sqlReq = "INSERT INTO requirement (ID_Vacancy, item)"
                         +"VALUES ("+vacancy.getId()+", '"+req+"');";
@@ -45,8 +44,12 @@ public class VacancyDAO {
                 ps.executeUpdate();
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
-        return false;
+        if(response!=0)
+            return true;
+        else
+            return false;
     }
     
     public Vacancy read(String idVacancy) {
@@ -75,7 +78,7 @@ public class VacancyDAO {
     
     public List activeCompanyVacancies(int idCompany){
         ArrayList<Vacancy> list = new ArrayList<>();
-        String sql = "SELECT * FROM VACANCY WHERE ACTIVE = 1 AND Company_id = 2"+idCompany;
+        String sql = "SELECT * FROM VACANCY WHERE ACTIVE = 1 AND Company_id = " + idCompany;
         try {
             conn = connDB.getConnection();
             ps = conn.prepareStatement(sql);
@@ -84,13 +87,14 @@ public class VacancyDAO {
                 Vacancy vacancy = new Vacancy();
                 vacancy.setId(rs.getInt("ID_Vacancy"));
                 vacancy.setWorkstation(rs.getString("Workstation"));
+                System.out.println("Vacancy: "+vacancy.getWorkstation());
                 vacancy.setDescription(rs.getString("Description"));
                 vacancy.setSalary(rs.getInt("Salary"));
                 vacancy.setWorkHours(rs.getString("Work hours"));
                 vacancy.setAddress(rs.getString("Address_Job"));
                 vacancy.setInformation(rs.getString("Aditional_information"));
                 vacancy.setRequirements(getRequirements(vacancy.getId()));
-                vacancy.setIdCompany(rs.getInt("Company_id"));
+                //vacancy.setIdCompany(rs.getInt("Company_id"));
                 list.add(vacancy);
             }
         } catch (Exception e) {
@@ -101,7 +105,7 @@ public class VacancyDAO {
     
     public List inactiveCompanyVacancies(int idCompany){
         ArrayList<Vacancy> list = new ArrayList<>();
-        String sql = "SELECT * FROM VACANCY WHERE ACTIVE = 0 AND Company_id = 2"+idCompany;
+        String sql = "SELECT * FROM VACANCY WHERE ACTIVE = 0 AND Company_id = "+idCompany;
         try {
             conn = connDB.getConnection();
             ps = conn.prepareStatement(sql);
@@ -115,8 +119,8 @@ public class VacancyDAO {
                 vacancy.setWorkHours(rs.getString("Work hours"));
                 vacancy.setAddress(rs.getString("Address_Job"));
                 vacancy.setInformation(rs.getString("Aditional_information"));
-                vacancy.setRequirements(getRequirements(vacancy.getId()));
-                vacancy.setIdCompany(rs.getInt("Company_id"));
+                //vacancy.setRequirements(getRequirements(vacancy.getId()));
+                //vacancy.setIdCompany(rs.getInt("Company_id"));
                 list.add(vacancy);
             }
         } catch (Exception e) {
@@ -168,7 +172,7 @@ public class VacancyDAO {
                 vacancy.setWorkHours(rs.getString("Work hours"));
                 vacancy.setAddress(rs.getString("Address_Job"));
                 vacancy.setInformation(rs.getString("Aditional_information"));
-                vacancy.setRequirements(getRequirements(vacancy.getId()));
+                //vacancy.setRequirements(getRequirements(vacancy.getId()));
                 vacancy.setIdCompany(rs.getInt("Company_id"));
                 list.add(vacancy);
             }
@@ -194,7 +198,7 @@ public class VacancyDAO {
                 vacancy.setWorkHours(rs.getString("Work hours"));
                 vacancy.setAddress(rs.getString("Address_Job"));
                 vacancy.setInformation(rs.getString("Aditional_information"));
-                vacancy.setRequirements(getRequirements(vacancy.getId()));
+                //vacancy.setRequirements(getRequirements(vacancy.getId()));
                 vacancy.setIdCompany(rs.getInt("Company_id"));
                 list.add(vacancy);
             }
@@ -221,7 +225,7 @@ public class VacancyDAO {
                 vacancy.setWorkHours(rs.getString("Work hours"));
                 vacancy.setAddress(rs.getString("Address_Job"));
                 vacancy.setInformation(rs.getString("Aditional_information"));
-                vacancy.setRequirements(getRequirements(vacancy.getId()));
+                //vacancy.setRequirements(getRequirements(vacancy.getId()));
                 vacancy.setIdCompany(rs.getInt("Company_id"));
                 list.add(vacancy);
             }

@@ -59,7 +59,7 @@
                                         Soporte
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Ayuda</a>
+                                        <a class="dropdown-item" href="help.html">Ayuda</a>
                                         <a class="dropdown-item" href="#">Contáctanos</a>
                                         <a class="dropdown-item" href="#">Acerca de Kysuphanmem</a>
                                     </div>
@@ -90,12 +90,7 @@
                 </div>
             </div>
             
-            <%
-                User user = (User)session.getAttribute("user");
-                StudentDAO sDao = new StudentDAO();
-                Student student = sDao.read(user.getId());
-                session.setAttribute("student", student);
-            %>
+            
 
             <br>
             <h1 class="text-white">Bienvenido, busca empleo en la sección de vacantes</h1>

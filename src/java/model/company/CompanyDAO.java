@@ -70,6 +70,7 @@ public class CompanyDAO {
                 company.setPhone(rs.getString("phone"));
                 company.setAddress(rs.getString("address"));
                 company.setIdRep(rs.getInt("Legal_Representative_id"));
+                
             }
         } catch (Exception e) {
             e.printStackTrace();

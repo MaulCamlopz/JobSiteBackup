@@ -1,11 +1,10 @@
 <%-- 
-    Document   : studentAddProfile
-    Created on : 24/05/2020, 11:17:54 PM
+    Document   : companyAddVacancy
+    Created on : 27/05/2020, 12:21:11 AM
     Author     : b22br
 --%>
 
-<%@page import="model.student.Student"%>
-<%@page import="model.user.User"%>
+<%@page import="model.company.Company"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profile - Jobsite</title>
+    <title>Vacantes - Jobsite</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
@@ -23,7 +22,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/tooplate.css">
-    
+
 </head>
 
 <body id="reportsPage">
@@ -32,8 +31,7 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl navbar-light bg-light">
-                        
-                        <a class="navbar-brand" href="studentHome.jsp">
+                        <a class="navbar-brand" href="companyHome.jsp">
                             <h1 class="tm-site-title mb-0">Jobsite</h1>
                         </a>
                         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -45,11 +43,11 @@
                             <ul class="navbar-nav mx-auto">
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="studentHome.jsp">Home</a>
+                                    <a class="nav-link" href="companyHome.jsp">Home</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="studentVacancy.jsp">Vacantes</a>
+                                    <a class="nav-link active" href="companyVacancy.jsp">Vacantes</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -70,8 +68,8 @@
                                         Configuración
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item active" href="studentProfile.jsp">Perfil</a>
-                                        <a class="dropdown-item" href="studentCV.jsp">CV</a>
+                                        <a class="dropdown-item" href="#">Perfil</a>
+                                      
                                     </div>
                                 </li>
 
@@ -89,95 +87,73 @@
                 </div>
             </div>
             
-            <!-- row -->
+        <!-- row -->
         <div class="row tm-mt-big">
             
-            <%
-                User user = (User)session.getAttribute("user");
-                Student student = new Student();
-            %>
+            <%Company company = (Company)session.getAttribute("company");%>
+            
 
             <div class="col-xl-8 col-lg-10 col-md-12 col-sm-12">
-                <div class="bg-light tm-block">
-                    
+                <div class="bg-white tm-block">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="tm-block-title d-inline-block">Agregar información</h2>
+                            <h2 class="tm-block-title d-inline-block">Nueva Vacante</h2>
                         </div>
                     </div>
-                    
                     <div class="row mt-4 tm-edit-product-row">
-
                         <div class="col-xl-7 col-lg-7 col-md-12">
-                            <form action="StudentController" method="post" class="tm-edit-product-form">
+                            <form action="CompanyController" method="post" class="tm-edit-product-form">
                                 <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Nombre</label>
-                                    <input name="name" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Nombre de la vacante</label>
+                                    <input name="workstation" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Apellido</label>
-                                    <input name="lastName" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 mb-2">Descripción</label>
+                                    <textarea name="description" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" rows="3" required></textarea>
+                                </div>
+                                 <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Salario:</label>
+                                    <input name="salary" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Teléfono</label>
-                                    <input  name="phone" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Horas de trabajo</label>
+                                    <input name="workhours" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                 <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Lugar de trabajo:</label>
+                                    <input name="address" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Email</label>
-                                    <input name="email" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Universidad</label>
-                                    <input name="university" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Carrera</label>
-                                    <input name="career" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Domicilio</label>
-                                    <input name="address" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">País</label>
-                                    <input name="country" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Estado</label>
-                                    <input name="city" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
+                                    <label for="expire_date" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">ID</label>
+                                    <input name="idVacancy" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" required>
                                 </div>
                                 
-                                <input name="idUser" type="hidden" value="<%= user.getId() %>">
-                                
-                                <div class="row">
-                                    <div class="col-12 col-sm-8 tm-btn-right">
-                                        <button type="submit" name="action" value="createStudent" class="btn btn-primary">Aceptar</button>
-                                       
+                                <input name="idCompany" type="hidden" value="<%= company.getId() %>">
+                               
+                                <div class="input-group mb-3">
+                                    <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+                                        <button name="action" type="submit" value="addVacancy" type="submit" class="btn btn-primary">Aceptar</button>
                                     </div>
                                 </div>
-                                
-                                
                             </form>
                         </div>
-                        
+                       
                     </div>
                 </div>
             </div>
 
         </div>
-            
-            
-            <footer class="row tm-mt-big">
-                <div class="col-12 font-weight-light">
-                    <p class="d-inline-block tm-bg-black text-white py-2 px-4">
-                        Copyright &copy; 2020 Jobsite. Created by Kysuphanmem Company.
-                    </p>
-                </div>
-            </footer>
-            
-        </div>
+
+        <footer class="row tm-mt-big">
+            <div class="col-12 font-weight-light">
+                <p class="d-inline-block tm-bg-black text-white py-2 px-4">
+                    Copyright &copy; 2020 Jobsite. Created by Kysuphanmem Company.
+                </p>
+            </div>
+        </footer>
+        
     </div>
-    
+
     <script src="js/jquery-3.3.1.min.js"></script>
     <!-- https://jquery.com/download/ -->
     <script src="js/bootstrap.min.js"></script>
@@ -185,4 +161,5 @@
     <script src="js/tooplate-scripts.js"></script>
     
 </body>
+
 </html>

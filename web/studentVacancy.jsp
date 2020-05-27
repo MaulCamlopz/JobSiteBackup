@@ -4,6 +4,7 @@
     Author     : b22br
 --%>
 
+<%@page import="model.user.User"%>
 <%@page import="model.vacancy.VacancyRequirement"%>
 <%@page import="model.student.StudentDAO"%>
 <%@page import="model.student.Student"%>
@@ -65,7 +66,7 @@
                                         Soporte
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Ayuda</a>
+                                        <a class="dropdown-item" href="help.html">Ayuda</a>
                                         <a class="dropdown-item" href="#">Contáctanos</a>
                                         <a class="dropdown-item" href="#">Acerca de Kysuphanmem</a>
                                     </div>
@@ -95,13 +96,20 @@
                     </nav>
                 </div>
             </div>
+            
+            <%
+                User user = (User)session.getAttribute("user");
+                StudentDAO sDao = new StudentDAO();
+                Student student = sDao.read(user.getId());
+                session.setAttribute("student", student);
+            %>
 
             <!-- Content -->
             <div class="row tm-content-row tm-mt-big">
                 
                 <%
                     
-                    Student student = (Student)session.getAttribute("student");
+                    //Student student = (Student)session.getAttribute("student");
                     StudentDAO daoStudent = new StudentDAO();
                     List<VacancyRequirement> selectedVacancies = daoStudent.ListSelectedVacancies(student.getId());
                     Iterator<VacancyRequirement> iterSelectedVacancies = selectedVacancies.iterator();
