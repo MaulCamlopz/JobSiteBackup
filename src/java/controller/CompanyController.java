@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.company.Company;
 import model.company.CompanyDAO;
+import model.company.Representative;
 import model.student.Student;
 import model.student.StudentDAO;
 import model.user.User;
@@ -63,12 +64,32 @@ public class CompanyController extends HttpServlet {
                 access = successPage;
             }else{
                 access = erroPage;
+            }   
+        } else if(action.equalsIgnoreCase("addProfile")){
+            System.out.println("ADD PROFILE");
+            Company company = new Company();
+            Representative rep = new Representative();
+            CompanyDAO dao = new CompanyDAO();
+            int idUser = Integer.valueOf(request.getParameter("idUser"));
+            company.setName(request.getParameter("name"));
+            company.setAddress(request.getParameter("address"));
+            company.setCity(request.getParameter("city"));
+            company.setPhone(request.getParameter("phone"));
+            company.setEmail(request.getParameter("email"));
+            company.setRFC(request.getParameter("rfc"));
+            company.setCountry(request.getParameter("county"));
+            rep.setName(request.getParameter("nameRep"));
+            rep.setLastName(request.getParameter("lastNameRep"));
+            rep.setPhone(request.getParameter("phone"));
+            rep.setEmail(request.getParameter("email"));
+            if(dao.create(company,rep,idUser)){
+                access = successPage;
+            }else{
+                access = erroPage;
             }
         } else{
             access = erroPage;
         }
-        
-        //
         
         RequestDispatcher view = request.getRequestDispatcher(access);
         view.forward(request, response);

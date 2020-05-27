@@ -1,20 +1,20 @@
 <%-- 
-    Document   : studentEditProfile
-    Created on : 24/05/2020, 10:09:35 PM
+    Document   : companyAddProfile
+    Created on : 27/05/2020, 02:33:53 AM
     Author     : b22br
 --%>
 
-<%@page import="model.student.Student"%>
 <%@page import="model.user.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profile - Jobsite</title>
+
+    <title>Home - Jobsite</title>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/tooplate.css">
-    
+
 </head>
 
 <body id="reportsPage">
@@ -32,8 +32,7 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl navbar-light bg-light">
-                        
-                        <a class="navbar-brand" href="studentHome.jsp">
+                        <a class="navbar-brand" href="companyHome.jsp">
                             <h1 class="tm-site-title mb-0">Jobsite</h1>
                         </a>
                         <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -45,13 +44,13 @@
                             <ul class="navbar-nav mx-auto">
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="studentHome.jsp">Home</a>
+                                    <a class="nav-link active" href="companyHome.jsp">Home</a>
                                 </li>
-
+                                
                                 <li class="nav-item">
-                                    <a class="nav-link" href="studentVacancy.jsp">Vacantes</a>
+                                    <a class="nav-link" href="companyVacancy.jsp">Vacantes</a>
                                 </li>
-
+                           
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
@@ -70,8 +69,8 @@
                                         Configuración
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item active" href="studentProfile.jsp">Perfil</a>
-                                        <a class="dropdown-item" href="studentCV.jsp">CV</a>
+                                        <a class="dropdown-item" href="companyProfile.jsp">Perfil</a>
+                                      
                                     </div>
                                 </li>
 
@@ -89,90 +88,68 @@
                 </div>
             </div>
             
+            <%User user = (User)session.getAttribute("user");%>
+            
             <!-- row -->
         <div class="row tm-mt-big">
-            
-            <% Student student = (Student)session.getAttribute("student");%>
 
             <div class="col-xl-8 col-lg-10 col-md-12 col-sm-12">
-                <div class="bg-light tm-block">
-                    
+                <div class="bg-white tm-block">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="tm-block-title d-inline-block">Editar información</h2>
+                            <h2 class="tm-block-title d-inline-block">Ingresa la información completa</h2>
+                            <p></p>
                         </div>
                     </div>
-                    
                     <div class="row mt-4 tm-edit-product-row">
-
                         <div class="col-xl-7 col-lg-7 col-md-12">
-                            <form action="StudentController" method="post" class="tm-edit-product-form">
-                                
+                            <form action="CompanyController"  method="post" class="tm-edit-product-form">
                                 <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Nombre</label>
-                                    <input placeholder="<%=student.getName()%>" name="name" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Nombre de Empresa</label>
+                                    <input name="name" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Nombre (Representante Legal)</label>
+                                    <input name="nameRep" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Apellido (Representante Legal)</label>
+                                    <input name="lastNameRep" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">RFC:</label>
+                                    <input name="rfc" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">email</label>
+                                    <input name="email" type="email" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Dirección</label>
+                                    <input name="address" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Telefono</label>
+                                    <input name="phone" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label for="name" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Ciudad</label>
+                                    <input name="city" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                                 </div>
                                 
                                 <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Apellido</label>
-                                    <input placeholder="<%= student.getLastName() %>" name="lastName" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                    <label for="name" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">País</label>
+                                    <input name="county" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                                 </div>
                                 
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Teléfono</label>
-                                    <input placeholder="<%= student.getPhone() %>" name="phone" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                </div>
+                                <input name="idUser" type="hidden" value="<%= user.getId() %>">
                                 
                                 <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Email</label>
-                                    <input placeholder="<%= student.getEmail() %>" name="email" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                </div>
-                                
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Universidad</label>
-                                    <input placeholder="<%= student.getUniversity() %>" name="university" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                </div>
-                                
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Carrera</label>
-                                    <input placeholder="<%= student.getCareer() %>" name="career" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0 tm-btn-right">
-                                        <a href="Controller?action=editStudent&edit=country">Editar</a>
+                                    <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+                                        <button name="action" value="addProfile" type="submit" class="btn btn-primary">Aceptar</button>
                                     </div>
                                 </div>
-                                    
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Domicilio</label>
-                                    <input placeholder="<%= student.getAddress() %>" name="address" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0 tm-btn-right">
-                                        <a href="Controller?action=editStudent&edit=country">Editar</a>
-                                    </div>
-                                </div>
-                                    
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">País</label>
-                                    <input placeholder="<%= student.getCountry() %>" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0 tm-btn-right">
-                                        <a href="Controller?action=editStudent&edit=country">Editar</a>
-                                    </div>
-                                </div>
-                                    
-                                <div class="input-group mb-3">
-                                    <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Estado</label>
-                                    <input placeholder="<%= student.getCity() %>" name="city" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0 tm-btn-right">
-                                        <a href="Controller?action=editStudent&edit=country">Editar</a>
-                                    </div>
-                                </div>
-                                    
-                                <input name="idStudent" type="hidden" value="<%= student.getId() %>">
-                                
-                                <div class="row">
-                                    <div class="col-12 col-sm-4">
-                                        <button type="submit" name="action" value="deleteStudent" class="btn btn-danger">Borrar</button>
-                                    </div>
-                                </div>
-                                
+
                             </form>
                         </div>
                         
@@ -181,10 +158,6 @@
             </div>
 
         </div>
-            
-            
-                
-            
 
             <footer class="row tm-mt-big">
                 <div class="col-12 font-weight-light">
@@ -193,14 +166,11 @@
                     </p>
                 </div>
             </footer>
-            
         </div>
     </div>
-    
+
     <script src="js/jquery-3.3.1.min.js"></script>
-    <!-- https://jquery.com/download/ -->
     <script src="js/bootstrap.min.js"></script>
-    <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
     
 </body>

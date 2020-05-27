@@ -66,7 +66,7 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="#">Ayuda</a>
                                         <a class="dropdown-item" href="#">Contáctanos</a>
-                                        <a class="dropdown-item" href="#">Acerca de Kysuphanmem</a>
+                                        <a class="dropdown-item" href="about.html">Acerca de Kysuphanmem</a>
                                     </div>
                                 </li>
                                 

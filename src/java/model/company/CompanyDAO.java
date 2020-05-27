@@ -26,15 +26,16 @@ public class CompanyDAO {
         int idRepresentative = createRepresentative(representative);
         
         if(idRepresentative!=0){
+            System.out.println("SET COMPANY");
             String sql = "INSERT INTO company (name, RFC, email, phone, country, country_state, "
-                    + "address, Legal_Representative_id, User_id) VALUES ("
-                    + company.getName() + ", "
-                    + company.getRFC() + ", "
-                    + company.getEmail() + ", "
-                    + company.getPhone() + ", "
-                    + company.getCountry() + ", "
-                    + company.getCity() + ", "
-                    + company.getAddress() + ", "
+                    + "address, Legal_Representative_id, User_id) VALUES ('"
+                    + company.getName() + "', '"
+                    + company.getRFC() + "', '"
+                    + company.getEmail() + "', '"
+                    + company.getPhone() + "', '"
+                    + company.getCountry() + "', '"
+                    + company.getCity() + "', '"
+                    + company.getAddress() + "', '"
                     + idRepresentative + ", "
                     + idUser;
             int response = 0;
@@ -101,13 +102,26 @@ public class CompanyDAO {
     }
 
     private int createRepresentative(Representative representative) {
-        String sql = "INSERT INTO legal_representative (name, last_name, second_last_name, phone, email) "
-                + "VALUES (" + representative.getName()
-                + ", " + representative.getLastName()
-                + ", " + representative.getSecondLastName()
-                + ", " + representative.getPhone()
-                + ", " + representative.getEmail()
-                + "); SELECT @@IDENTITY AS id;";
+        String sql = "INSERT INTO legal_representative (name, last_name, phone, email) "
+                + "VALUES ('" + representative.getName()
+                + "', '" + representative.getLastName()
+                + "', '" + representative.getPhone()
+                + "', '" + representative.getEmail()
+                + "')";
+        int id = 0;
+        try {
+            conn = connDB.getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return getIdRepresentative();
+    }
+    
+    private int getIdRepresentative(){
+        String sql = "SELECT @@IDENTITY AS id";
         int id = 0;
         try {
             conn = connDB.getConnection();
@@ -119,6 +133,7 @@ public class CompanyDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(id);
         return id;
     }
     

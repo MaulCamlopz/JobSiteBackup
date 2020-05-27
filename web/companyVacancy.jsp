@@ -63,7 +63,7 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="help.html">Ayuda</a>
                                         <a class="dropdown-item" href="#">Contáctanos</a>
-                                        <a class="dropdown-item" href="#">Acerca de Kysuphanmem</a>
+                                        <a class="dropdown-item" href="about.html">Acerca de Kysuphanmem</a>
                                     </div>
                                 </li>
                                 
@@ -73,7 +73,7 @@
                                         Configuración
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Perfil</a>
+                                        <a class="dropdown-item" href="companyProfile.jsp">Perfil</a>
 
                                     </div>
                                 </li>
